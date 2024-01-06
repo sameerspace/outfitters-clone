@@ -10,6 +10,12 @@ Make sure you have the following installed on your machine:
 - Node.js
 - npm (Node Package Manager)
 
+## Tools
+
+- Next Js
+- Nest Js
+- Tailwind Css
+
 ### Installation
 
 Clone the repository:
