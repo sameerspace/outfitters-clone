@@ -1,24 +1,29 @@
 name: CI
 
 on:
-    push:
-        branches: ["dev"]
-    pull_request:
-        branches: ["dev"]
+  push:
+    branches: ["master, dev"]
+  pull_request:
+    branches: ["master", "dev"]
 
 jobs:
-    build:
-        name: build
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node-version: [18.x]
-        steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: ${{ matrix.node-version }}
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
-            - run: npm install -g pnpm
-            - run: pnpm i
-            - run: pnpm build
+      - name: Install PNPM
+        run: npm install -g pnpm
+
+      - name: Run pnpm install
+        run: pnpm i
+
+      - name: Build
+        run: pnpm build
