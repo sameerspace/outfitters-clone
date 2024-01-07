@@ -8,8 +8,10 @@ export const AppDataSource = new DataSource({
   database: AppConfig.database.name,
   password: AppConfig.database.password,
   type: 'postgres',
+  synchronize: true,
   migrationsTableName: 'migrations',
   migrations: ['src/migration/*.ts'],
+  entities: ['src/entities/*{.ts,.js}'],
   ssl: {
     rejectUnauthorized: false,
   },
