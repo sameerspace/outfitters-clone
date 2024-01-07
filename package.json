@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npx lerna run lint --scope outfitters-frontend --scope outfitters-backend",
+    "build": "npx lerna run build --parallel",
+    "test": "npx lerna run test --parallel",
+    "start:frontend": "npx lerna run start --scope=outfitters-frontend",
+    "start:backend": "npx lerna run start:dev --scope=outfitters-backend"
   },
   "keywords": [],
   "author": "",
