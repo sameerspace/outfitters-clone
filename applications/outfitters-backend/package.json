@@ -21,7 +21,7 @@
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:create": "pnpm run typeorm migration:create",
     "migration:generate": "pnpm typeorm migration:generate -d src/config/orm.config.ts",
-    "migration:run": "pnpm run typeorm migration:run -d src/config/orm.config.ts",
+    "migration:run": "pnpm run typeorm migration:run -d src/database/data-source.ts",
     "migration:run:prod": "pnpm run typeorm migration:run -d build/src/config/orm.config.prod.js",
     "migration:rollback": "pnpm run typeorm migration:revert -d src/config/orm.config.ts",
     "migration:show": "pnpm run typeorm migration:show -d src/config/orm.config.ts"
