@@ -21,9 +21,9 @@
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "migration:create": "pnpm run typeorm migration:create",
     "migration:generate": "pnpm typeorm migration:generate -d dist/src/database/data-source.js",
-    "migration:run": "pnpm run typeorm migration:run -d dist/src/database/data-source.js",
-    "migration:run:prod": "pnpm run typeorm migration:run -d bdist/src/database/data-source.js",
-    "migration:rollback": "pnpm run typeorm migration:revert -d dist/src/database/data-source.js",
+    "migration:run": "nest build && pnpm run typeorm migration:run -d dist/src/database/data-source.js",
+    "migration:run:prod": "nest build && pnpm run typeorm migration:run -d bdist/src/database/data-source.js",
+    "migration:rollback": "nest build && pnpm run typeorm migration:revert -d dist/src/database/data-source.js",
     "migration:show": "pnpm run typeorm migration:show -d dist/src/database/data-source.js"
   },
   "dependencies": {
