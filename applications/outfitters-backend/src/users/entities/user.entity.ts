@@ -1,5 +1,5 @@
 import { BeforeInsert, Entity, PrimaryColumn } from 'typeorm';
-import ulid from 'ulid';
+import { ulid } from 'ulid';
 
 @Entity()
 export class User {
@@ -8,6 +8,6 @@ export class User {
 
   @BeforeInsert()
   generateUlid() {
-    this.id = ulid.ulid();
+    this.id = ulid();
   }
 }
