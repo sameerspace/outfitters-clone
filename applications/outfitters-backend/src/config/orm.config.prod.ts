@@ -13,7 +13,7 @@ export default registerAs(
     database: process.env.DB_NAME,
     entities: [User],
     migrationsTableName: 'migrations',
-    migrations: ['dist/src/migrations/*.js'],
+    migrations: ['dist/src/migrations/*{.ts,.js}'],
     synchronize: false,
   }),
 );
