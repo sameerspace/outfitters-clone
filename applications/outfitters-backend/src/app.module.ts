@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    UsersModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [ormConfig],
@@ -19,7 +20,6 @@ import { UsersModule } from './users/users.module';
       useFactory:
         process.env.NODE_ENV !== 'production' ? ormConfig : ormConfigProd,
     }),
-    UsersModule,
   ],
   controllers: [],
   providers: [],
