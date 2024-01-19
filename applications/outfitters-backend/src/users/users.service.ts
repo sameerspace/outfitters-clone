@@ -31,11 +31,25 @@ export class UsersService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await this.usersRepository.findOne({ where: { id } });
+
+    if (!user) {
+      throw new BadRequestException('User Not Found');
+    }
+
+    const updatedUser = { ...user, ...updateUserDto };
+
+    return this.usersRepository.save(updatedUser);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string): Promise<User> {
+    const user = await this.usersRepository.findOne({ where: { id } });
+
+    if (!user) {
+      throw new BadRequestException('User Not Found');
+    }
+
+    return await this.usersRepository.remove(user);
   }
 }
