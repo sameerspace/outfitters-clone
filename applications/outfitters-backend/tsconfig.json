@@ -17,7 +17,7 @@
     "strictPropertyInitialization": false,
     "sourceMap": true,
     "rootDir": ".",
-    "outDir": "build",
+    "outDir": "dist",
     "lib": ["esnext", "dom", "es2018", "esnext.asynciterable"],
   },
   "typeRoots": ["node_modules/@types"],

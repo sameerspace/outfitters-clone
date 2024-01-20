@@ -12,7 +12,7 @@ export default registerAs('orm.config', (): TypeOrmModuleOptions => {
     database: process.env.DATABASE_NAME,
     entities: [User],
     migrationsTableName: 'migrations',
-    migrations: ['src/migrations/*.ts'],
+    migrations: ['dist/src/migrations/*{.ts,.js}'],
     synchronize: false,
   };
 });
