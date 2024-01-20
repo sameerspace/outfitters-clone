@@ -9,6 +9,7 @@ import { configValidationSchema } from './utils/env.validation';
 import { UsersModule } from './users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -30,6 +31,7 @@ dotenv.config();
           ? ormConfigProd
           : ormConfig,
     }),
+    AuthenticationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -18,6 +18,9 @@ export class User {
   @Column({ name: 'last_name' })
   lastName: string;
 
+  @Column({ name: 'username', default: 'null' })
+  username: string;
+
   @BeforeInsert()
   generateUlid() {
     this.id = ulid();

@@ -18,11 +18,13 @@ export class UsersService {
   }
 
   async findAll(): Promise<User[]> {
-    return await this.usersRepository.find();
+    return this.usersRepository.find();
   }
 
-  async findOne(id: string): Promise<User> {
-    const user = await this.usersRepository.findOne({ where: { id } });
+  async findOne(username: string): Promise<User> {
+    const user = await this.usersRepository.findOne({
+      where: { username },
+    });
 
     if (!user) {
       throw new BadRequestException('User Not Found');
