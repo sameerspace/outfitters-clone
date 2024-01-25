@@ -6,13 +6,6 @@ on:
     pull_request:
         branches: ["master", "dev"]
 
-env:
-    DATABASE_HOST: localhost
-    DATABASE_NAME: outfitters-test
-    DATABASE_USERNAME: test
-    DATABASE_PASSWORD: sample
-    DATABASE_PORT: 5432
-
 jobs:
     build:
         name: build
@@ -37,6 +30,15 @@ jobs:
 
     test:
         name: test
+
+        env:
+            ENVIRONMENT: test
+            DATABASE_HOST: localhost
+            DATABASE_NAME: outfitters-test
+            DATABASE_USERNAME: test
+            DATABASE_PASSWORD: sample
+            DATABASE_PORT: 5432
+
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -48,9 +50,9 @@ jobs:
                 ports:
                     - 5432:5432
                 env:
-                    POSTGRES_USER: postgres
-                    POSTGRES_PASSWORD: postgres
-                    POSTGRES_DB: test-outfitters
+                    POSTGRES_USER: test
+                    POSTGRES_PASSWORD: sample
+                    POSTGRES_DB: outfitters-test
                 options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
         steps:
