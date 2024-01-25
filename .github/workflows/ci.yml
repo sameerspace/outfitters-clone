@@ -6,6 +6,13 @@ on:
     pull_request:
         branches: ["master", "dev"]
 
+env:
+    DATABASE_HOST: localhost
+    DATABASE_NAME: outfitters-test
+    DATABASE_USERNAME: test
+    DATABASE_PASSWORD: sample
+    DATABASE_PORT: 5432
+
 jobs:
     build:
         name: build
@@ -41,10 +48,9 @@ jobs:
                 ports:
                     - 5432:5432
                 env:
-                    DATABASE_USERNAME: postgres
-                    DATABASE_PASSWORD: postgres
-                    DATABASE_NAME: test-outfitters
-                    DATABASE_PORT: 5432
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: postgres
+                    POSTGRES_DB: test-outfitters
                 options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
         steps:
