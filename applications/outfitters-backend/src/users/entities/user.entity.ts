@@ -18,7 +18,7 @@ export class User {
   @Column({ name: 'last_name' })
   lastName: string;
 
-  @Column({ name: 'username', default: 'null' })
+  @Column({ name: 'username' })
   username: string;
 
   @BeforeInsert()

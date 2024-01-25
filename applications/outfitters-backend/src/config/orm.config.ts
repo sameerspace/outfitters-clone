@@ -5,14 +5,14 @@ import { User } from '../users/entities/user.entity';
 export default registerAs('orm.config', (): TypeOrmModuleOptions => {
   return {
     type: 'postgres',
-    host: process.env.DB_HOST,
-    port: parseInt(process.env.DB_PORT!, 10),
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    host: process.env.DATABASE_HOST,
+    port: parseInt(process.env.DATABASE_PORT!, 10),
+    username: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
     entities: [User],
     migrationsTableName: 'migrations',
     migrations: ['dist/src/migrations/*{.ts,.js}'],
-    synchronize: true,
+    synchronize: false,
   };
 });
