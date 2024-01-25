@@ -14,5 +14,5 @@ export const AppDataSource = new DataSource({
   entities: [User],
   migrationsTableName: 'migrations',
   migrations: ['dist/src/migrations/*{.ts,.js}'],
-  synchronize: process.env.ENVIRONMENT == 'test',
+  synchronize: process.env.ENVIRONMENT === 'test' ? true : false,
 });
