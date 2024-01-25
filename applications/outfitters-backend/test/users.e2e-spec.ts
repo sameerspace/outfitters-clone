@@ -27,6 +27,7 @@ describe('UserController (e2e)', () => {
   it('/users (POST) 201 CREATED', async () => {
     const mockUser: CreateUserDto = {
       email: 'test@test.com',
+      username: 'samistesting',
       firstName: 'sam',
       lastName: 'test',
       password: 'Testing123',
