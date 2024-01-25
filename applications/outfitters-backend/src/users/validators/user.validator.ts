@@ -6,15 +6,13 @@ export const createUserSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string()
     .min(8)
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
     .max(20)
     .error(
       new Joi.ValidationError(
         'Invalid Password',
         [
           {
-            message:
-              'Password must be atleast 8 characters long and have upper and lowercase alphanumeric characters',
+            message: 'Password must be between 8 - 20 chars',
             path: [],
             type: 'string.uppercase',
           },
