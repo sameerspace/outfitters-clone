@@ -16,11 +16,6 @@ import { CreateUserValidator } from './validators/user.validator';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body(new CreateUserValidator()) createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
-
   @Get()
   findAll() {
     return this.usersService.findAll();
