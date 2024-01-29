@@ -32,10 +32,10 @@ export class AuthController {
     const createdUser = await this.userService.create(user);
     return {
       user: createdUser,
-      access_token: this.authService.signPayload({
-        sub: createdUser.id,
-        username: createdUser.username,
-      }),
+      access_token: this.authService.generateToken(
+        createdUser.id,
+        createdUser.username,
+      ),
     };
   }
 

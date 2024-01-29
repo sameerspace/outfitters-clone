@@ -2,11 +2,6 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 
-interface SignUserPayload {
-  sub: string;
-  username: string;
-}
-
 @Injectable()
 export class AuthService {
   constructor(
@@ -20,11 +15,12 @@ export class AuthService {
       throw new UnauthorizedException();
     }
     return {
-      access_token: this.signPayload({ sub: user.id, username: user.username }),
+      access_token: this.generateToken(user.id, user.username),
     };
   }
 
-  signPayload(payload: SignUserPayload) {
+  generateToken(userId: string, username: string) {
+    const payload = { sub: userId, username };
     return this.jwtService.sign(payload);
   }
 }
