@@ -19,7 +19,7 @@ dotenv.config();
     UsersModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [ormConfig],
+      load: [ormConfig, ormConfigTest, ormConfigProd],
       expandVariables: true,
       validationSchema: configValidationSchema,
     }),

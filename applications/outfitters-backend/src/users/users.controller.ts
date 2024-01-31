@@ -16,11 +16,6 @@ import { CreateUserValidator } from './validators/user.validator';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body(new CreateUserValidator()) createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
-
   @Get()
   findAll() {
     return this.usersService.findAll();
@@ -29,7 +24,7 @@ export class UsersController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      return await this.usersService.findOne(id);
+      return await this.usersService.findOne({ where: { id } });
     } catch (error) {
       throw error;
     }
