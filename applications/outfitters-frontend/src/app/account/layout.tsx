@@ -1,9 +1,12 @@
+import Footer from '@/components/Footer/Footer';
 import Navbar from '@/components/Navbar/Navbar';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex-col h-screen">
       <Navbar />
+      {children}
+      <Footer />
     </div>
   );
 };
