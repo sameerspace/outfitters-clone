@@ -1,12 +1,12 @@
 import { FaInstagram, FaPinterest, FaTiktok, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { ImFacebook2 } from 'react-icons/im';
 
-const EmailFooter = () => {
+const EmailFooter: React.FC = () => {
   return (
     <div className="flex flex-col w-full h-52 items-center justify-evenly pb-10">
-      <div>GET THE LATEST TRENDS FIRST</div>
+      <div className="text-2xl">GET THE LATEST TRENDS FIRST</div>
       <input
-        className="w-1/3 h-10 border-b-2 border-black placeholder:text-center placeholder:text-black placeholder:font-thin focus:outline-none placeholder:focus:text-xs focus:placeholder:mb-10"
+        className="w-1/3  h-10 border-b-2 border-black placeholder:text-center placeholder:text-black placeholder:font-thin focus:outline-none placeholder:focus:text-xs focus:placeholder:mb-10"
         type="text"
         placeholder="ENTER YOUR EMAIL"
       />
