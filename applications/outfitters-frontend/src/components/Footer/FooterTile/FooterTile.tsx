@@ -21,7 +21,7 @@ const FooterTile = () => {
         <div className="flex flex-col w-1/4 mt-6">
           <Link href={''}>HELP</Link>
           <div className="mt-4">
-            <Link href={''}>FAQ's</Link>
+            <Link href={''}>FAQ&apos;s</Link>
             <br />
             <Link href={''}>LOG IN/SIGN UP</Link>
             <br />
