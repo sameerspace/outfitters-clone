@@ -11,7 +11,13 @@ const Navbar = () => {
           width={30}
           height={30}
         />
-        <div className="font-bold italic text-4xl">Outfitters</div>
+        <Image
+          src={'/icons/outfitters-logo.svg'}
+          alt="outfitters"
+          className="w-[104px] h-[25px] md:w-[150px] md:h-[36px]"
+          width={150}
+          height={36}
+        />
       </div>
       <div className="flex gap-4 md:gap-10 items-end">
         <div className="flex items-center gap-4">
