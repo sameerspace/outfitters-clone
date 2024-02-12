@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <div className="flex flex-col min-h-screen overflow-x-hidden">
+        <div className="flex flex-col min-h-screen">
           <Navbar />
           {children}
           <div className="mt-auto">
