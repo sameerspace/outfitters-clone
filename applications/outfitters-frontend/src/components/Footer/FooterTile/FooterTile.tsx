@@ -4,10 +4,10 @@ import Link from 'next/link';
 const FooterTile = () => {
   return (
     <>
-      <div className="flex flex-col md:flex-row w-full justify-center h-1/3 text-white bg-black mt-[5rem] pt-[2.5rem] px-[1rem] lg:px-[10rem] pb-[1rem] text-xs leading-6">
-        <div className="flex flex-col justify-start md:w-1/4 pl-[2rem]">
+      <div className="flex flex-col md:flex-row items-start w-full justify-center h-1/3 text-white bg-black mt-[5rem] pt-[2.5rem] px-[0px] lg:px-[10rem] pb-[1rem] text-xs leading-6">
+        <div className="flex flex-col justify-start w-full md:w-1/4 px-[2rem]">
           <Link href={''}>CAN WE HELP YOU?</Link>
-          <div className="md:hidden w-3/4 mt-4">
+          <div className="md:hidden sm:w-full md:3/4 mt-4">
             <div className="flex justify-between items-center">
               <p>SEND EMAIL</p>
               <a
