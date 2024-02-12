@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
+import Navbar from '@/components/Navbar/Navbar';
+import Footer from '@/components/Footer/Footer';
 
 const roboto = Roboto({ weight: ['400', '500', '700'], subsets: ['latin'] });
 
@@ -12,7 +14,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <body className={roboto.className}>
+        <div className="flex flex-col min-h-screen overflow-x-hidden">
+          <Navbar />
+          {children}
+          <div className="mt-auto">
+            <Footer />
+          </div>
+        </div>
+      </body>
     </html>
   );
 }
