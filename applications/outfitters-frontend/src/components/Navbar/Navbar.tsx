@@ -13,13 +13,13 @@ const Navbar = () => {
         />
         <div className="font-bold italic text-4xl">Outfitters</div>
       </div>
-      <div className="flex gap-10 items-end">
+      <div className="flex gap-4 md:gap-10 items-end">
         <div className="flex items-center gap-4">
-          <div className="border-b-2  border-black h-2 w-20" />
+          <div className="hidden md:block border-b-2  border-black h-2 w-20" />
           <div>SEARCH</div>
         </div>
-        <div className="flex gap-6 items-end">
-          <div>LOGIN</div>
+        <div className="flex gap-1 md:gap-6 items-end">
+          <div className="hidden md:block">LOGIN</div>
           <HiOutlineShoppingBag size={25} />
         </div>
       </div>

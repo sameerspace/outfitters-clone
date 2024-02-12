@@ -1,7 +1,7 @@
 const Page = () => {
   return (
     <div className="flex justify-center h-[38rem] ">
-      <div className="flex flex-col w-[30rem]  max-w-[47.8rem] pt-20 items-center">
+      <div className="flex flex-col w-[19rem] md:w-[28rem] max-w-[47.8rem] pt-20 items-center">
         <h1 className="font-bold text-[2.5rem] mb-14">Create Account</h1>
         <input
           className="px-4 py-[12px] w-full mb-4 border border-black"
