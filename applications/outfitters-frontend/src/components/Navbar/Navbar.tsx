@@ -3,7 +3,7 @@ import { HiOutlineShoppingBag } from 'react-icons/hi2';
 
 const Navbar = () => {
   return (
-    <div className="w-full h-16 flex items-center px-8 justify-between bg-transparent sticky top-0">
+    <div className="w-full h-16 flex flex-wrap sm:flex-nowrap items-center px-8 justify-between bg-transparent sticky top-0">
       <div className="flex gap-2">
         <Image
           src={'/icons/hamburger.png'}

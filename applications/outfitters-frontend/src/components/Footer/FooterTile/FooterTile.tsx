@@ -4,13 +4,14 @@ import Link from 'next/link';
 const FooterTile = () => {
   return (
     <>
-      <div className="flex flex-col md:flex-row items-start w-full justify-center h-1/3 text-white bg-black mt-[5rem] pt-[2.5rem] px-[0px] lg:px-[10rem] pb-[1rem] text-xs leading-6">
+      <div className="flex flex-col md:flex-row items-start w-full justify-center h-1/3 text-white bg-black mt-[5rem] pt-[2.5rem] px-4 lg:px-[10rem] pb-[1rem] text-xs leading-6">
         <div className="flex flex-col justify-start w-full md:w-1/4 px-[2rem]">
           <Link href={''}>CAN WE HELP YOU?</Link>
-          <div className="md:hidden sm:w-full md:3/4 mt-4">
+          <div className="md:hidden sm:w-full md:w-3/4 mt-4">
             <div className="flex justify-between items-center">
               <p>SEND EMAIL</p>
-              <a
+              <a 
+              className='break-all'
                 href="mailto:contactus@outfitters.com.pk"
                 title="mailto:contactus@outfitters.com.pk"
               >
@@ -27,12 +28,12 @@ const FooterTile = () => {
               <p>MON-FRI 9:00 to 5:30 PST</p>
             </div>
           </div>
-          <div className="hidden md:block mt-4">
+          <div className="hidden md:block mt-4 break-all">
             <Link href={''}>SEND EMAIL</Link>
             <br />
-            <Link href={''}>CONTACTUS@OUTFITTERS.COM.PK</Link>
+            <Link href={''} >CONTACTUS@OUTFITTERS.COM.PK</Link>
           </div>
-          <div className="hidden md:block mt-4">
+          <div className="hidden md:block mt-4 break-all">
             <Link href={''}>UAN: 042 111</Link>
             <br />
             <Link href={''}>MON-FRI: 9:00 TO 5:30 PST</Link>
