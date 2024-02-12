@@ -4,21 +4,41 @@ import Link from 'next/link';
 const FooterTile = () => {
   return (
     <>
-      <div className="flex w-full justify-center h-1/3 text-white bg-black py-4 px-40 text-xs leading-6">
-        <div className="flex flex-col justify-start w-1/4 mt-6">
+      <div className="flex flex-col md:flex-row w-full justify-center h-1/3 text-white bg-black mt-[5rem] pt-[2.5rem] px-[1rem] lg:px-[10rem] pb-[1rem] text-xs leading-6">
+        <div className="flex flex-col justify-start md:w-1/4 pl-[2rem]">
           <Link href={''}>CAN WE HELP YOU?</Link>
-          <div className="mt-4">
+          <div className="md:hidden w-3/4 mt-4">
+            <div className="flex justify-between items-center">
+              <p>SEND EMAIL</p>
+              <a
+                href="mailto:contactus@outfitters.com.pk"
+                title="mailto:contactus@outfitters.com.pk"
+              >
+                CONTACTUS@OUTFITTERS.COM.PK
+              </a>
+            </div>
+            <div className="flex justify-between items-center">
+              <a
+                href="tel:042111116387"
+                title="tel:042111116387"
+              >
+                UAN: 042 111-11-6387{' '}
+              </a>
+              <p>MON-FRI 9:00 to 5:30 PST</p>
+            </div>
+          </div>
+          <div className="hidden md:block mt-4">
             <Link href={''}>SEND EMAIL</Link>
             <br />
             <Link href={''}>CONTACTUS@OUTFITTERS.COM.PK</Link>
           </div>
-          <div className="mt-4">
+          <div className="hidden md:block mt-4">
             <Link href={''}>UAN: 042 111</Link>
             <br />
             <Link href={''}>MON-FRI: 9:00 TO 5:30 PST</Link>
           </div>
         </div>
-        <div className="flex flex-col w-1/4 mt-6">
+        <div className="hidden md:flex flex-col w-1/4 pl-[2rem]">
           <Link href={''}>HELP</Link>
           <div className="mt-4">
             <Link href={''}>FAQ&apos;s</Link>
@@ -34,7 +54,7 @@ const FooterTile = () => {
             <Link href={''}>EXCHANGE & RETURNS</Link>
           </div>
         </div>
-        <div className="flex flex-col w-1/4 mt-6">
+        <div className="hidden md:flex flex-col w-1/4 pl-[2rem]">
           <Link href={''}>ABOUT OUTFITTERS</Link>
           <div className="mt-4">
             <Link href={''}>ABOUT US</Link>
@@ -46,10 +66,10 @@ const FooterTile = () => {
             <Link href={''}>WORK WITH US</Link>
           </div>
         </div>
-        <div className="flex flex-col w-1/4 mt-6">
+        <div className="flex flex-col w-1/2 md:w-1/4 pl-[2rem]">
           <div>DOWNLOAD APP</div>
-          <div className="mt-4">
-            <div className="flex">
+          <div className="mt-4 w-full">
+            <div className="flex w-full">
               <Link href={''}>
                 <Image
                   src={'/icons/playstore.webp'}
