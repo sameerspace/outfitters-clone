@@ -107,12 +107,23 @@ const FooterTile = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-full h-20 gap-6 justify-center items-center bg-black border-t-[1px] border-y-white text-white text-xs">
-        <p>@ 2024, OUTFITTERS</p>
+      <div className="flex w-full h-10 gap-2 md:gap-6 justify-center items-center bg-black border-t-[1px] border-y-white text-white md:text-xs text-[11px]">
+        <Link
+          href={''}
+          className="block md:hidden"
+        >
+          FAQ&apos;s
+        </Link>
+        <p className="hidden md:block">@ 2024, OUTFITTERS</p>
         <p>/</p>
-        <p>TERMS AND CONDITIONS</p>
+        <Link href={''}>TERMS AND CONDITIONS</Link>
         <p>/</p>
-        PRIVACY POLICY
+        <Link href={''}>PRIVACY POLICY</Link>
+      </div>
+      <div className="flex md:hidden w-full justify-center bg-black text-white text-[11px] pb-2">
+        <p>
+          @ 2024, <Link href={''}>OUTFITTERS</Link>
+        </p>
       </div>
     </>
   );
