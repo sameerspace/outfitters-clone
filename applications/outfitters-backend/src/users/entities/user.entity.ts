@@ -18,9 +18,6 @@ export class User {
   @Column({ name: 'last_name' })
   lastName: string;
 
-  @Column({ name: 'username' })
-  username: string;
-
   @BeforeInsert()
   generateUlid() {
     this.id = ulid();

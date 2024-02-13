@@ -22,11 +22,11 @@ export const createUserSchema = Joi.object({
     ),
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  username: Joi.string().required(),
 });
 
 export class CreateUserValidator implements PipeTransform {
   transform(value: CreateUserDto) {
+    console.log(value);
     const result = createUserSchema.validate(value);
 
     if (result.error) {
