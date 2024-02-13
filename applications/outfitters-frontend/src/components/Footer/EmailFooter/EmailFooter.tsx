@@ -3,20 +3,20 @@ import { ImFacebook2 } from 'react-icons/im';
 
 const EmailFooter: React.FC = () => {
   return (
-    <div className="flex flex-col w-full h-52 items-center justify-evenly pb-10">
-      <div className="text-2xl">GET THE LATEST TRENDS FIRST</div>
+    <div className="flex flex-col w-full h-52 items-center justify-evenly pb-10 px-6">
+      <div className="text-base md:text-xl">GET THE LATEST TRENDS FIRST</div>
       <input
-        className="w-[35rem] h-10 border-b-[1px] border-black placeholder:text-center placeholder:text-black placeholder:font-thin focus:outline-none placeholder:focus:text-xs focus:placeholder:mb-10"
+        className="w-full md:w-[31rem] h-10 border-b-[0.07rem] border-black placeholder:text-center placeholder:text-black placeholder:font-thin focus:outline-none placeholder:focus:text-xs focus:placeholder:mb-10"
         type="text"
         placeholder="ENTER YOUR EMAIL"
       />
-      <div className="flex justify-center gap-10 w-1/4 mt-4">
-        <ImFacebook2 size={22} />
-        <FaInstagram size={22} />
-        <FaTiktok size={22} />
-        <FaYoutube size={22} />
-        <FaTwitter size={22} />
-        <FaPinterest size={22} />
+      <div className="flex justify-evenly md:justify-center md:gap-10 lg:1/4 w-full mt-4">
+        <ImFacebook2 size={'22px'} />
+        <FaInstagram size={'22px'} />
+        <FaTiktok size={'22px'} />
+        <FaYoutube size={'22px'} />
+        <FaTwitter size={'22px'} />
+        <FaPinterest size={'22px'} />
       </div>
     </div>
   );
