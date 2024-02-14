@@ -2,7 +2,9 @@
 
 import Spinner from '@/components/Spinner/Spinner';
 import apiClient from '@/configs/axios.config';
-import { RegisterSchema } from '@/validations/register.schema';
+import { CreateUserRequest, UserAuthResponse } from '@/types/user.interface';
+import { setToken } from '@/utils/token';
+import { RegisterSchema } from '@/validations/auth.schema';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -10,12 +12,10 @@ import { toast } from 'sonner';
 const Page = () => {
   const router = useRouter();
 
-  const submitForm = async (values: object, setSubmitting: Function) => {
+  const submitForm = async (values: CreateUserRequest, setSubmitting: Function) => {
     try {
-      await apiClient.post('/auth/register', values, {
-        headers: { 'Content-Type': 'application/json' },
-      });
-      setSubmitting(false);
+      const { data } = await apiClient.post<any, { data: UserAuthResponse }>('/auth/register', values);
+      setToken(data.access_token);
       router.replace('/');
     } catch (error: any) {
       setSubmitting(false);
@@ -61,13 +61,16 @@ const Page = () => {
                 type="password"
               />
               <div className="flex py-8 flex-col items-center">
-                <button
-                  type="submit"
-                  className="bg-black text-white px-6 py-2 w-full"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? <Spinner /> : <div>Create</div>}
-                </button>
+                {isSubmitting ? (
+                  <Spinner />
+                ) : (
+                  <button
+                    type="submit"
+                    className="bg-black text-white px-6 py-2 w-full active:bg-gray-500"
+                  >
+                    Create
+                  </button>
+                )}
               </div>
             </div>
           </div>

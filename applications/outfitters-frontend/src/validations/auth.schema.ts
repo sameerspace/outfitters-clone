@@ -8,3 +8,8 @@ export const RegisterSchema = Yup.object().shape({
   email: Yup.string().email().required(),
   password: Yup.string().min(8).required(),
 });
+
+export const LoginSchema = Yup.object().shape({
+  email: Yup.string().email().required(),
+  password: Yup.string().min(8).required(),
+});
