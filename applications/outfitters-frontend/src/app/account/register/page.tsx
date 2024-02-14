@@ -49,16 +49,31 @@ const Page = () => {
                 placeholder="Last Name"
                 name="lastName"
               />
+              <ErrorMessage
+                name="lastName"
+                component="div"
+                className="text-red-600"
+              />
               <Field
                 className="px-4 py-[12px] w-full mb-4 border border-black"
                 placeholder="Email"
                 name="email"
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="text-red-600"
               />
               <Field
                 className="px-4 py-[12px] w-full mb-4 border border-black"
                 placeholder="password"
                 name="password"
                 type="password"
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="text-red-600"
               />
               <div className="flex py-8 flex-col items-center">
                 {isSubmitting ? (

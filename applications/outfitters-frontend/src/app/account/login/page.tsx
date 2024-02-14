@@ -5,7 +5,7 @@ import apiClient from '@/configs/axios.config';
 import { LoginUserRequest, UserAuthResponse } from '@/types/user.interface';
 import { setToken } from '@/utils/token';
 import { LoginSchema } from '@/validations/auth.schema';
-import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
@@ -39,11 +39,21 @@ const Page = () => {
                 placeholder="Email"
                 name="email"
               />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="text-red-600"
+              />
               <Field
                 className="px-4 py-[12px] w-full mb-4 border border-black"
                 placeholder="Password"
                 type="password"
                 name="password"
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="text-red-600"
               />
               <div className="flex items-start w-full">
                 <p className="text-base">FORGOT YOUR PASSWORD?</p>
