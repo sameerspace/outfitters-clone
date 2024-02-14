@@ -1,32 +1,32 @@
 'use client';
 
+import Spinner from '@/components/Spinner/Spinner';
 import apiClient from '@/configs/axios.config';
 import { RegisterSchema } from '@/validations/register.schema';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
-import { FormEvent } from 'react';
+import { toast } from 'sonner';
 
 const Page = () => {
   const router = useRouter();
 
-  const submitFOrm = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
+  const submitForm = async (values: object, setSubmitting: Function) => {
     try {
-      const response = await apiClient.post('/auth/register', formData, {
+      await apiClient.post('/auth/register', values, {
         headers: { 'Content-Type': 'application/json' },
       });
+      setSubmitting(false);
       router.replace('/');
     } catch (error: any) {
-      console.log(error.response.data.message);
+      setSubmitting(false);
+      toast.error(error.response.data.message);
     }
   };
 
   return (
     <Formik
-      initialValues={{}}
-      onSubmit={() => {}}
+      initialValues={{ firstName: '', lastName: '', email: '', password: '' }}
+      onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}
       validationSchema={RegisterSchema}
     >
       {({ isSubmitting }) => (
@@ -66,7 +66,7 @@ const Page = () => {
                   className="bg-black text-white px-6 py-2 w-full"
                   disabled={isSubmitting}
                 >
-                  Create
+                  {isSubmitting ? <Spinner /> : <div>Create</div>}
                 </button>
               </div>
             </div>
