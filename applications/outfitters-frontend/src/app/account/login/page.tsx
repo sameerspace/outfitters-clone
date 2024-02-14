@@ -6,6 +6,7 @@ import { LoginUserRequest, UserAuthResponse } from '@/types/user.interface';
 import { setToken } from '@/utils/token';
 import { LoginSchema } from '@/validations/auth.schema';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
@@ -69,7 +70,12 @@ const Page = () => {
                     Sign In
                   </button>
                 )}
-                <h3 className="text-xl font-light pt-4 w-full">Create Account</h3>
+                <Link
+                  href="/account/register"
+                  className="text-xl font-light pt-4 w-full"
+                >
+                  CREATE ACCOUNT
+                </Link>
               </div>
             </div>
           </div>
