@@ -31,6 +31,15 @@ export class UsersService {
     return user;
   }
 
+  async userExists(options: FindOneOptions<User>): Promise<boolean> {
+    const user = await this.usersRepository.findOne(options);
+
+    if (!user) {
+      return false;
+    }
+    return true;
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.usersRepository.findOne({ where: { id } });
 

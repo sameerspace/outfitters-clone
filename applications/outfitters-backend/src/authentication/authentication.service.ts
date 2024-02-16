@@ -1,26 +1,48 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
+    private userService: UsersService,
     private jwtService: JwtService,
   ) {}
 
-  async signIn(username: string, pass: string) {
-    const user = await this.usersService.findOne({ where: { username } });
+  async signIn(email: string, pass: string) {
+    const user = await this.userService.findOne({ where: { email } });
     if (user.password !== pass) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid Password');
     }
     return {
-      access_token: this.generateToken(user.id, user.username),
+      access_token: this.generateToken(user.id, user.email),
+      user,
     };
   }
 
-  generateToken(userId: string, username: string) {
-    const payload = { sub: userId, username };
+  async signUp(user: CreateUserDto) {
+    const existingUser = await this.userService.userExists({
+      where: { email: user.email },
+    });
+
+    if (existingUser) {
+      throw new BadRequestException('User already exists');
+    }
+
+    const createdUser = await this.userService.create(user);
+    return {
+      user: createdUser,
+      access_token: this.generateToken(createdUser.id, createdUser.email),
+    };
+  }
+
+  generateToken(userId: string, email: string) {
+    const payload = { sub: userId, email };
     return this.jwtService.sign(payload);
   }
 }
