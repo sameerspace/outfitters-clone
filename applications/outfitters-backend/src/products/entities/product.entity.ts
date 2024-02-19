@@ -36,7 +36,7 @@ export class Product {
   vendor: string;
 
   @ManyToMany(() => ProductOptions)
-  @JoinTable()
+  @JoinTable({ name: 'product_product_options' })
   options: ProductOptions[];
 
   @BeforeInsert()
