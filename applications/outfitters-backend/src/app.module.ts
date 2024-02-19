@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { ProductsModule } from './products/products.module';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -32,6 +33,7 @@ dotenv.config();
           : ormConfig,
     }),
     AuthenticationModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
