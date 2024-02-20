@@ -1,8 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
+import {
+  CreateProductDto,
+  CreateProductOptionsDTO,
+} from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
-import { FindOneOptions, Repository } from 'typeorm';
+import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductOption } from './entities/productOptions.entity';
 
@@ -15,13 +18,7 @@ export class ProductsService {
   ) {}
 
   async create(createProductDto: CreateProductDto) {
-    const options = await Promise.all(
-      createProductDto.options.map((option) => {
-        const record = this.productOptionsRepository.create(option);
-
-        return this.productOptionsRepository.save(record);
-      }),
-    );
+    const options = await this.createBulkOptions(createProductDto.options);
 
     const { options: _, ...prod } = createProductDto;
 
@@ -39,8 +36,8 @@ export class ProductsService {
     return await this.productRepository.save(product);
   }
 
-  findAll() {
-    return this.productRepository.find();
+  findAll(options: FindManyOptions<Product> = {}) {
+    return this.productRepository.find(options);
   }
 
   async findOne(options: FindOneOptions<Product> = {}) {
@@ -53,11 +50,49 @@ export class ProductsService {
     return product;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    const { options } = updateProductDto;
+    const productToUpdate = await this.findOne({ where: { id } });
+
+    if (options) {
+      await this.deleteOptionsByProductId(productToUpdate.id);
+
+      productToUpdate.options = await this.createBulkOptions(options);
+    }
+
+    const data = { ...productToUpdate, ...updateProductDto };
+
+    return this.productRepository.save(data);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: string) {
+    const product = await this.findOne({ where: { id } });
+    await this.deleteOptionsByProductId(product.id);
+
+    return await this.productRepository.remove(product);
+  }
+
+  async deleteOptionsByProductId(productId: string) {
+    const existingProductOptions = await this.productOptionsRepository.find({
+      where: {
+        products: { id: productId },
+      },
+    });
+
+    if (existingProductOptions.length == 0) {
+      throw new NotFoundException('Option(s) Not Found');
+    }
+
+    return await this.productOptionsRepository.remove(existingProductOptions);
+  }
+
+  async createBulkOptions(options: CreateProductOptionsDTO[]) {
+    return await Promise.all(
+      options.map((option) => {
+        const record = this.productOptionsRepository.create(option);
+
+        return this.productOptionsRepository.save(record);
+      }),
+    );
   }
 }

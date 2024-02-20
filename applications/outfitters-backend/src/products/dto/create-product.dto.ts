@@ -14,7 +14,7 @@ export enum Vendor {
   JUNIORS = 'juniors',
 }
 
-class CreateProductOptionsDTO {
+export class CreateProductOptionsDTO {
   @IsNotEmpty()
   @IsString()
   key: string;
