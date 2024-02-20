@@ -11,10 +11,6 @@ import {
 import { AuthService } from './authentication.service';
 import { AuthGuard } from './authentication.guard';
 import { CreateUserDto, LoginDto } from '../users/dto/create-user.dto';
-import {
-  CreateUserValidator,
-  LoginUserValidator,
-} from '../users/validators/user.validator';
 
 @Controller('auth')
 export class AuthController {
@@ -22,12 +18,12 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body(new LoginUserValidator()) loginDto: LoginDto) {
+  signIn(@Body() loginDto: LoginDto) {
     return this.authService.signIn(loginDto.email, loginDto.password);
   }
 
   @Post('register')
-  async signUp(@Body(new CreateUserValidator()) user: CreateUserDto) {
+  async signUp(@Body() user: CreateUserDto) {
     return this.authService.signUp(user);
   }
 
