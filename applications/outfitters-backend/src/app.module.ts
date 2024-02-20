@@ -5,7 +5,7 @@ import ormConfigTest from './config/orm.config.test';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { configValidationSchema } from './utils/env.validation';
+import { validate } from './utils/env.validation';
 import { UsersModule } from './users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -21,7 +21,7 @@ dotenv.config();
       isGlobal: true,
       load: [ormConfig, ormConfigTest, ormConfigProd],
       expandVariables: true,
-      validationSchema: configValidationSchema,
+      validate,
     }),
     TypeOrmModule.forRootAsync({
       useFactory:
