@@ -20,7 +20,7 @@ export class CreateProductOptionsTable1708347302169
             isNullable: false,
           }),
           new TableColumn({
-            name: 'value',
+            name: 'values',
             type: 'varchar',
             isNullable: false,
           }),

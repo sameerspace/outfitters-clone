@@ -7,7 +7,7 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { ulid } from 'ulid';
-import { ProductOptions } from './productOptions.entity';
+import { ProductOption } from './productOptions.entity';
 
 /* 
   NOTE FOR FUTURE: 
@@ -35,9 +35,9 @@ export class Product {
   @Column({ type: 'enum', enum: ['men', 'women', 'juniors'], nullable: false })
   vendor: string;
 
-  @ManyToMany(() => ProductOptions)
+  @ManyToMany(() => ProductOption, (option) => option.products)
   @JoinTable({ name: 'product_product_options' })
-  options: ProductOptions[];
+  options: ProductOption[];
 
   @BeforeInsert()
   generateUlid() {

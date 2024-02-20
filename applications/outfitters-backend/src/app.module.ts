@@ -17,7 +17,6 @@ dotenv.config();
 
 @Module({
   imports: [
-    UsersModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [ormConfig, ormConfigTest, ormConfigProd],
@@ -32,6 +31,7 @@ dotenv.config();
           ? ormConfigProd
           : ormConfig,
     }),
+    UsersModule,
     AuthenticationModule,
     ProductsModule,
   ],

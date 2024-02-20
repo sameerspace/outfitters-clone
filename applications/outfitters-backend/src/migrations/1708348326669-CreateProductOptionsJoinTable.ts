@@ -21,7 +21,7 @@ export class CreateProductOptionsJoinTable1708348326669
             isPrimary: true,
           }),
           new TableColumn({
-            name: 'optionId',
+            name: 'productOptionId',
             type: 'varchar',
             length: '26',
             isPrimary: true,
@@ -38,7 +38,7 @@ export class CreateProductOptionsJoinTable1708348326669
         onDelete: 'CASCADE',
       }),
       new TableForeignKey({
-        columnNames: ['optionId'],
+        columnNames: ['productOptionId'],
         referencedTableName: 'product_option',
         referencedColumnNames: ['id'],
         onDelete: 'CASCADE',

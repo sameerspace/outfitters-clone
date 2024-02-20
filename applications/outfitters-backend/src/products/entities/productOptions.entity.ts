@@ -1,5 +1,12 @@
-import { BeforeInsert, Column, Entity, PrimaryColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  ManyToMany,
+  PrimaryColumn,
+} from 'typeorm';
 import { ulid } from 'ulid';
+import { Product } from './product.entity';
 
 /* 
   In case of color, the value will contain the name of the color i.e "Grey blue",
@@ -7,7 +14,7 @@ import { ulid } from 'ulid';
 */
 
 @Entity()
-export class ProductOptions {
+export class ProductOption {
   @PrimaryColumn()
   id: string;
 
@@ -26,6 +33,9 @@ export class ProductOptions {
     },
   })
   values: string[];
+
+  @ManyToMany(() => Product, (product) => product.options)
+  products: Product[];
 
   @BeforeInsert()
   generateUlid() {

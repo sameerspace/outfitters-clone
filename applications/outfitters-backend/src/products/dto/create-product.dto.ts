@@ -21,7 +21,7 @@ class CreateProductOptionsDTO {
 
   @IsArray()
   @IsNotEmpty()
-  value: string[];
+  values: string[];
 }
 
 export class CreateProductDto {
@@ -41,7 +41,8 @@ export class CreateProductDto {
   @IsEnum(Vendor)
   vendor: Vendor;
 
+  @IsNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => CreateProductOptionsDTO)
-  options: CreateProductOptionsDTO;
+  options: CreateProductOptionsDTO[];
 }
