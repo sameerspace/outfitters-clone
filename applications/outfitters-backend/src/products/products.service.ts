@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import {
+  CreateImageDTO,
   CreateProductDto,
   CreateProductOptionsDTO,
 } from './dto/create-product.dto';
@@ -8,6 +9,7 @@ import { Product } from './entities/product.entity';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductOption } from './entities/productOptions.entity';
+import { Image } from './entities/image.entity';
 
 @Injectable()
 export class ProductsService {
@@ -15,10 +17,14 @@ export class ProductsService {
     @InjectRepository(Product) private productRepository: Repository<Product>,
     @InjectRepository(ProductOption)
     private productOptionsRepository: Repository<ProductOption>,
+    @InjectRepository(Image) private imageRepository: Repository<Image>,
   ) {}
 
   async create(createProductDto: CreateProductDto) {
-    const options = await this.createBulkOptions(createProductDto.options);
+    const options = await this.createBulk(
+      this.productOptionsRepository,
+      createProductDto.options,
+    );
 
     const { options: _, ...prod } = createProductDto;
 
@@ -33,7 +39,11 @@ export class ProductsService {
       handle,
     });
 
-    return await this.productRepository.save(product);
+    const createdProduct = await this.productRepository.save(product);
+
+    await this.createBulkImages(createProductDto.images, createdProduct);
+
+    return createdProduct;
   }
 
   findAll(options: FindManyOptions<Product> = {}) {
@@ -57,7 +67,10 @@ export class ProductsService {
     if (options) {
       await this.deleteOptionsByProductId(productToUpdate.id);
 
-      productToUpdate.options = await this.createBulkOptions(options);
+      productToUpdate.options = await this.createBulk(
+        this.productOptionsRepository,
+        options,
+      );
     }
 
     const data = { ...productToUpdate, ...updateProductDto };
@@ -86,12 +99,20 @@ export class ProductsService {
     return await this.productOptionsRepository.remove(existingProductOptions);
   }
 
-  async createBulkOptions(options: CreateProductOptionsDTO[]) {
+  async createBulk(repository: Repository<any>, records: any[]) {
     return await Promise.all(
-      options.map((option) => {
-        const record = this.productOptionsRepository.create(option);
+      records.map((record) => {
+        const data = repository.create(record);
+        return repository.save(data);
+      }),
+    );
+  }
 
-        return this.productOptionsRepository.save(record);
+  async createBulkImages(images: CreateImageDTO[], product: Product) {
+    return await Promise.all(
+      images.map((image) => {
+        const img = this.imageRepository.create({ ...image, product });
+        return this.imageRepository.save(img);
       }),
     );
   }

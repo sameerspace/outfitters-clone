@@ -4,6 +4,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsString,
+  IsUrl,
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -24,6 +25,14 @@ export class CreateProductOptionsDTO {
   values: string[];
 }
 
+export class CreateImageDTO {
+  @IsString()
+  @IsUrl()
+  url: string;
+
+  @IsString()
+  alt: string;
+}
 export class CreateProductDto {
   @IsNotEmpty()
   @IsString()
@@ -45,4 +54,9 @@ export class CreateProductDto {
   @ValidateNested({ each: true })
   @Type(() => CreateProductOptionsDTO)
   options: CreateProductOptionsDTO[];
+
+  @IsNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => CreateImageDTO)
+  images: CreateImageDTO[];
 }
