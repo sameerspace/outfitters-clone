@@ -12,9 +12,15 @@ import { toast } from 'sonner';
 const Page = () => {
   const router = useRouter();
 
-  const submitForm = async (values: CreateUserRequest, setSubmitting: Function) => {
+  const submitForm = async (
+    values: CreateUserRequest,
+    setSubmitting: Function,
+  ) => {
     try {
-      const { data } = await apiClient.post<any, { data: UserAuthResponse }>('/auth/register', values);
+      const { data } = await apiClient.post<any, { data: UserAuthResponse }>(
+        '/auth/register',
+        values,
+      );
       setToken(data.access_token);
       router.replace('/');
     } catch (error: any) {
@@ -26,7 +32,9 @@ const Page = () => {
   return (
     <Formik
       initialValues={{ firstName: '', lastName: '', email: '', password: '' }}
-      onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}
+      onSubmit={(values, { setSubmitting }) =>
+        submitForm(values, setSubmitting)
+      }
       validationSchema={RegisterSchema}
     >
       {({ isSubmitting }) => (

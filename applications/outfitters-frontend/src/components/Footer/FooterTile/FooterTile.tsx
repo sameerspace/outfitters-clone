@@ -10,8 +10,8 @@ const FooterTile = () => {
           <div className="md:hidden sm:w-full md:w-3/4 mt-4">
             <div className="flex justify-between items-center">
               <p>SEND EMAIL</p>
-              <a 
-              className='break-all'
+              <a
+                className="break-all"
                 href="mailto:contactus@outfitters.com.pk"
                 title="mailto:contactus@outfitters.com.pk"
               >
@@ -31,7 +31,7 @@ const FooterTile = () => {
           <div className="hidden md:block mt-4 break-all">
             <Link href={''}>SEND EMAIL</Link>
             <br />
-            <Link href={''} >CONTACTUS@OUTFITTERS.COM.PK</Link>
+            <Link href={''}>CONTACTUS@OUTFITTERS.COM.PK</Link>
           </div>
           <div className="hidden md:block mt-4 break-all">
             <Link href={''}>UAN: 042 111</Link>

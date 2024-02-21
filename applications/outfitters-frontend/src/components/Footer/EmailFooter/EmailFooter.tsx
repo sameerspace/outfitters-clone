@@ -1,4 +1,10 @@
-import { FaInstagram, FaPinterest, FaTiktok, FaTwitter, FaYoutube } from 'react-icons/fa';
+import {
+  FaInstagram,
+  FaPinterest,
+  FaTiktok,
+  FaTwitter,
+  FaYoutube,
+} from 'react-icons/fa';
 import { ImFacebook2 } from 'react-icons/im';
 
 const EmailFooter: React.FC = () => {

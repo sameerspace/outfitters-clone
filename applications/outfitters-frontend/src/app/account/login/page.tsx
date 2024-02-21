@@ -13,9 +13,15 @@ import { toast } from 'sonner';
 const Page = () => {
   const router = useRouter();
 
-  const submitForm = async (values: LoginUserRequest, setSubmitting: Function) => {
+  const submitForm = async (
+    values: LoginUserRequest,
+    setSubmitting: Function,
+  ) => {
     try {
-      const { data } = await apiClient.post<any, { data: UserAuthResponse }>('/auth/login', values);
+      const { data } = await apiClient.post<any, { data: UserAuthResponse }>(
+        '/auth/login',
+        values,
+      );
       setToken(data.access_token);
       router.replace('/');
     } catch (error: any) {
@@ -27,7 +33,9 @@ const Page = () => {
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
-      onSubmit={(values, { setSubmitting }) => submitForm(values, setSubmitting)}
+      onSubmit={(values, { setSubmitting }) =>
+        submitForm(values, setSubmitting)
+      }
       validationSchema={LoginSchema}
     >
       {({ isSubmitting }) => (
