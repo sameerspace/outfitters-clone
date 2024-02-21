@@ -1,9 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import {
-  CreateImageDTO,
-  CreateProductDto,
-  CreateProductOptionsDTO,
-} from './dto/create-product.dto';
+import { CreateImageDTO, CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
@@ -79,8 +75,14 @@ export class ProductsService {
   }
 
   async remove(id: string) {
-    const product = await this.findOne({ where: { id } });
-    await this.deleteOptionsByProductId(product.id);
+    const product = await this.findOne({
+      where: { id },
+      relations: { options: true },
+    });
+
+    if (product.options) {
+      await this.deleteOptionsByProductId(product.id);
+    }
 
     return await this.productRepository.remove(product);
   }
