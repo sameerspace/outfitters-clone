@@ -57,7 +57,7 @@ export class ProductsService {
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
-    const { options } = updateProductDto;
+    const { options, images, ...updateData } = updateProductDto;
     const productToUpdate = await this.findOne({ where: { id } });
 
     if (options) {
@@ -69,7 +69,16 @@ export class ProductsService {
       );
     }
 
-    const data = { ...productToUpdate, ...updateProductDto };
+    if (images) {
+      const existingImages = await this.imageRepository.find({
+        where: { product: { id: productToUpdate.id } },
+      });
+
+      existingImages && (await this.imageRepository.remove(existingImages));
+      await this.createBulkImages(images, productToUpdate);
+    }
+
+    const data = { ...productToUpdate, ...updateData };
 
     return this.productRepository.save(data);
   }
