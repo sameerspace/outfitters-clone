@@ -4,10 +4,12 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryColumn,
 } from 'typeorm';
 import { ulid } from 'ulid';
 import { ProductOption } from './productOptions.entity';
+import { Image } from './image.entity';
 
 /* 
   NOTE FOR FUTURE: 
@@ -34,6 +36,9 @@ export class Product {
 
   @Column({ type: 'enum', enum: ['men', 'women', 'juniors'], nullable: false })
   vendor: string;
+
+  @OneToMany(() => Image, (image) => image.product)
+  images: Image[];
 
   @ManyToMany(() => ProductOption, (option) => option.products)
   @JoinTable({ name: 'product_product_options' })

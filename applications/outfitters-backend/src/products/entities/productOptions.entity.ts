@@ -25,10 +25,10 @@ export class ProductOption {
     type: 'varchar',
     transformer: {
       to(value: string[]) {
-        return value.join(',');
+        return value?.join(',');
       },
       from(value: string) {
-        return value.split(',');
+        return value?.split(',');
       },
     },
   })
