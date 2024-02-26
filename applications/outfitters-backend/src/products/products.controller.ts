@@ -29,7 +29,10 @@ export class ProductsController {
 
   @Get(':handle')
   async findOne(@Param('handle') handle: string) {
-    return await this.productsService.findOne({ where: { handle } });
+    return await this.productsService.findOne({
+      where: { handle },
+      relations: ['images', 'options'],
+    });
   }
 
   @Patch(':id')
