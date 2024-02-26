@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-import './globals.css';
 import Navbar from '@/components/Navbar/Navbar';
 import Footer from '@/components/Footer/Footer';
 import { Toaster } from 'sonner';
+import QueryProvider from '@/providers/query.provider';
+import './globals.css';
 
 const roboto = Roboto({ weight: ['400', '500', '700'], subsets: ['latin'] });
 
@@ -19,16 +20,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={roboto.className}>
-        <Toaster richColors />
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          {children}
-          <div className="mt-auto">
-            <Footer />
+      <QueryProvider>
+        <body className={roboto.className}>
+          <Toaster richColors />
+          <div className="flex min-h-screen flex-col">
+            <Navbar />
+            {children}
+            <div className="mt-auto">
+              <Footer />
+            </div>
           </div>
-        </div>
-      </body>
+        </body>
+      </QueryProvider>
     </html>
   );
 }
