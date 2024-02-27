@@ -1,6 +1,7 @@
 'use client';
 
 import { useProducts } from '@/api/hooks/useProducts';
+import BackButton from '@/components/Buttons/BackButton/BackButton';
 import ProductDescription from '@/components/Products/ProductDescription/ProductDescription';
 import ProductImageSlider from '@/components/Products/ProductImageSlider/ProductImageSlider';
 import Spinner from '@/components/Spinner/Spinner';
@@ -20,18 +21,18 @@ const Page = ({ params }: Props) => {
     </div>
   ) : (
     <div className="w-full">
-      <div className="flex h-[80vh] w-full justify-center">
-        <div className="w-1/3 bg-yellow-400">
+      <div className="flex h-6 w-full items-center justify-start px-8">
+        <BackButton />
+      </div>
+      <div className="flex h-[100vh] w-full justify-center gap-16">
+        <div className="w-1/3 border-r-[1px] border-r-black pr-6">
           <img
             src={product!.images[0].url}
             alt={product!.images[0].alt}
+            className="h-[100vh] object-cover"
           />
         </div>
-        <div className="w-1/3 bg-green-600">
-          <div>text</div>
-          <div>text</div>
-          <div>text</div>
-        </div>
+        <ProductDescription product={product!} />
       </div>
     </div>
   );
