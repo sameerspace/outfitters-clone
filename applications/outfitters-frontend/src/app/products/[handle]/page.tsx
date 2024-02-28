@@ -24,12 +24,12 @@ const Page = ({ params }: Props) => {
       <div className="flex h-6 w-full items-center justify-start px-8">
         <BackButton />
       </div>
-      <div className="flex h-[100vh] w-full justify-center gap-16">
+      <div className="flex h-[90vh] w-full justify-center gap-16">
         <div className="w-1/3 border-r-[1px] border-r-black pr-6">
           <img
             src={product!.images[0].url}
             alt={product!.images[0].alt}
-            className="h-[100vh] object-cover"
+            className="h-[90vh] object-cover"
           />
         </div>
         <ProductDescription product={product!} />
