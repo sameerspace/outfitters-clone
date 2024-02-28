@@ -16,7 +16,7 @@ const ProductOptions = ({ options }: Props) => {
             option.key == 'color' ? (
               <ProductColorIcon colorName={value} />
             ) : (
-              <div>{value}</div>
+              <div>{value.toUpperCase()}</div>
             ),
           )}
         </div>
