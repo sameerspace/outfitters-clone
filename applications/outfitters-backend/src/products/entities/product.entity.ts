@@ -8,7 +8,6 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { ulid } from 'ulid';
-import { ProductOption } from './productOptions.entity';
 import { Image } from './image.entity';
 
 /* 
@@ -31,18 +30,20 @@ export class Product {
   @Column({ type: 'int' })
   price: number;
 
-  @Column({ type: 'varchar' })
-  description: string;
+  @Column({ type: 'varchar', nullable: true })
+  description?: string;
 
   @Column({ type: 'enum', enum: ['men', 'women', 'juniors'], nullable: false })
   vendor: string;
 
+  @Column({ type: 'varchar' })
+  care: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  fit?: string;
+
   @OneToMany(() => Image, (image) => image.product)
   images: Image[];
-
-  @ManyToMany(() => ProductOption, (option) => option.products)
-  @JoinTable({ name: 'product_product_options' })
-  options: ProductOption[];
 
   @BeforeInsert()
   generateUlid() {

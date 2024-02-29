@@ -23,7 +23,7 @@ export class ProductsController {
   @Get()
   findAll() {
     return this.productsService.findAll({
-      relations: { options: true, images: true },
+      relations: { images: true },
     });
   }
 
@@ -31,7 +31,7 @@ export class ProductsController {
   async findOne(@Param('handle') handle: string) {
     return await this.productsService.findOne({
       where: { handle },
-      relations: ['images', 'options'],
+      relations: ['images'],
     });
   }
 
