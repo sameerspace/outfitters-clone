@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsInt,
   IsNotEmpty,
+  IsOptional,
   IsString,
   IsUrl,
   ValidateNested,
@@ -38,9 +39,9 @@ export class CreateProductDto {
   @IsString()
   title: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  description: string;
+  description?: string;
 
   @IsNotEmpty()
   @IsInt()
@@ -49,6 +50,13 @@ export class CreateProductDto {
   @IsNotEmpty()
   @IsEnum(Vendor)
   vendor: Vendor;
+
+  @IsString()
+  care: string;
+
+  @IsOptional()
+  @IsString()
+  fit?: string;
 
   @IsNotEmpty()
   @ValidateNested({ each: true })
