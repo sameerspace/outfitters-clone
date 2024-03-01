@@ -7,7 +7,10 @@ interface Props {
 const ProductOptions = ({ options }: Props) => {
   return options.map((option) => {
     return (
-      <div className="my-2 flex align-baseline text-[12px] uppercase">
+      <div
+        key={option.id}
+        className="my-2 flex align-baseline text-[12px] uppercase"
+      >
         <div className="flex w-24 justify-start font-extrabold">
           {option.key}
         </div>
