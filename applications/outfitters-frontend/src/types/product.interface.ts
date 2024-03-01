@@ -10,11 +10,13 @@ interface Image {
 }
 
 interface ProductOptions {
+  id?: string;
   key: string;
   values: string[];
 }
 
 interface Product {
+  id?: string;
   title: string;
   handle: string;
   description: string;

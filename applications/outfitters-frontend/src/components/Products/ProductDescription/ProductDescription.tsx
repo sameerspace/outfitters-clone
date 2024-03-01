@@ -33,7 +33,7 @@ const ProductDescription = ({ product }: Props) => {
       <div className="mt-6 text-xs font-bold">COMPOSTION & CARE</div>
       <div className="mt-6 flex flex-col text-xs leading-5">
         {product.care.map((careitem: string) => (
-          <div>{careitem}</div>
+          <div key={`${product.handle}-${careitem}`}>{careitem}</div>
         ))}
       </div>
       <div className="jusitfy-start my-6 flex w-full text-xs font-bold">

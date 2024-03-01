@@ -7,16 +7,19 @@ interface Props {
 const ProductOptions = ({ options }: Props) => {
   return options.map((option) => {
     return (
-      <div className="my-2 flex align-baseline text-[12px]">
+      <div className="my-2 flex align-baseline text-[12px] uppercase">
         <div className="flex w-24 justify-start font-extrabold">
-          {option.key.toUpperCase()}
+          {option.key}
         </div>
         <div className="flex w-full justify-start gap-6">
           {option.values.map((value) =>
             option.key == 'color' ? (
-              <ProductColorIcon colorName={value} />
+              <ProductColorIcon
+                key={`${option?.id}`}
+                colorName={value}
+              />
             ) : (
-              <div>{value.toUpperCase()}</div>
+              <div key={`${option?.id}`}>{value}</div>
             ),
           )}
         </div>
