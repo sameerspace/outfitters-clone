@@ -20,6 +20,8 @@ interface Product {
   description: string;
   price: number;
   vendor: Vendor;
+  fit?: string;
+  care: string[];
   images: Image[];
   options: ProductOptions[];
 }

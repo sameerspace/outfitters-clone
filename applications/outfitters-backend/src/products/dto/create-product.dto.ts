@@ -51,8 +51,8 @@ export class CreateProductDto {
   @IsEnum(Vendor)
   vendor: Vendor;
 
-  @IsString()
-  care: string;
+  @IsArray()
+  care: string[];
 
   @IsOptional()
   @IsString()
