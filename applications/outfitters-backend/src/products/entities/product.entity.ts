@@ -2,20 +2,12 @@ import {
   BeforeInsert,
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
   OneToMany,
   PrimaryColumn,
 } from 'typeorm';
 import { ulid } from 'ulid';
-import { ProductOption } from './productOptions.entity';
 import { Image } from './image.entity';
-
-/* 
-  NOTE FOR FUTURE: 
-  - Product Options like Color, Size will come from CMS with their key and values
-  - Product Description will contain things like fit type, care, all in html that will be rendered
-*/
+import { Variant } from './variant.entity';
 
 @Entity()
 export class Product {
@@ -44,6 +36,7 @@ export class Product {
         return value?.join(',');
       },
       from(value: string) {
+        PrimaryColumn;
         return value?.split(',');
       },
     },
@@ -56,9 +49,8 @@ export class Product {
   @OneToMany(() => Image, (image) => image.product)
   images: Image[];
 
-  @ManyToMany(() => ProductOption, (option) => option.products)
-  @JoinTable({ name: 'product_product_options' })
-  options: ProductOption[];
+  @OneToMany(() => Variant, (variant) => variant.product)
+  variants: Variant[];
 
   @BeforeInsert()
   generateUlid() {
