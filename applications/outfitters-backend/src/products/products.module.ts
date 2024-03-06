@@ -5,7 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Image } from './entities/image.entity';
 import { Variant } from './entities/variant.entity';
-import { AttributesService } from '../attributes/attributes.service';
 import { AttributesModule } from '../attributes/attributes.module';
 
 @Module({

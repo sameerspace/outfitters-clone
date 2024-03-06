@@ -27,7 +27,9 @@ export class ProductsService {
       handle: generateHandle(),
     });
 
-    product.variants = await Promise.all(
+    const createdProduct = await this.productRepository.save(product);
+
+    createdProduct.variants = await Promise.all(
       variants?.map(async (variant) => {
         const attributes = await this.attributeService.find({
           where: { id: In(variant.attributes) },
@@ -35,16 +37,15 @@ export class ProductsService {
         const createdVariant = this.variantRepository.create({
           sku: variant.sku,
           attributes: attributes!,
+          product,
         });
 
         return await this.variantRepository.save(createdVariant);
       }),
     );
 
-    const createdProduct = await this.productRepository.save(product);
-    await this.createBulkImages(createProductDto.images, createdProduct);
-
-    return createdProduct;
+    // await this.createBulkImages(createProductDto.images, createdProduct);
+    return this.productRepository.save(createdProduct);
   }
 
   findAll(options: FindManyOptions<Product> = {}) {

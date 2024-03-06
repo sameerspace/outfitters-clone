@@ -3,7 +3,6 @@ import {
   IsEnum,
   IsInt,
   IsNotEmpty,
-  IsNotEmptyObject,
   IsOptional,
   IsString,
   IsUrl,
@@ -21,7 +20,7 @@ export class CreateVariantsDTO {
   @IsString()
   sku: string;
 
-  @IsNotEmptyObject()
+  @IsNotEmpty()
   @IsArray()
   attributes: string[];
 }

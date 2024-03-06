@@ -26,7 +26,7 @@ export class CreateAttributesTable1709650749699 implements MigrationInterface {
 
     await queryRunner.createTable(
       new Table({
-        name: 'attribute_variants_variant',
+        name: 'variant_attributes_attribute',
         columns: [
           {
             name: 'attributeId',
@@ -59,7 +59,7 @@ export class CreateAttributesTable1709650749699 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('attribute_variants_variant');
+    await queryRunner.dropTable('variant_attributes_attribute');
     await queryRunner.dropTable('attribute');
   }
 }
