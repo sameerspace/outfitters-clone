@@ -11,6 +11,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ProductsModule } from './products/products.module';
+import { AttributesModule } from './attributes/attributes.module';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -34,6 +35,7 @@ dotenv.config();
     UsersModule,
     AuthenticationModule,
     ProductsModule,
+    AttributesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

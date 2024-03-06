@@ -2,44 +2,50 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateImageDTO, CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
-import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
+import { FindManyOptions, FindOneOptions, In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductOption } from './entities/productOptions.entity';
 import { Image } from './entities/image.entity';
+import { Variant } from './entities/variant.entity';
+import { generateHandle } from '../utils/generateHandle';
+import { AttributesService } from '../attributes/attributes.service';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product) private productRepository: Repository<Product>,
-    @InjectRepository(ProductOption)
-    private productOptionsRepository: Repository<ProductOption>,
+    @InjectRepository(Variant)
+    private variantRepository: Repository<Variant>,
     @InjectRepository(Image) private imageRepository: Repository<Image>,
+    private readonly attributeService: AttributesService,
   ) {}
 
   async create(createProductDto: CreateProductDto) {
-    const options = await this.createBulk(
-      this.productOptionsRepository,
-      createProductDto.options,
-    );
-
-    const { options: _, ...prod } = createProductDto;
-
-    // TODO: Add logic to generate handle
-    const handle = `f${Math.floor(Math.random() * 9000)}-${Math.floor(
-      Math.random() * 900,
-    )}`;
+    const { variants, ...productData } = createProductDto;
 
     const product = this.productRepository.create({
-      options,
-      ...prod,
-      handle,
+      ...productData,
+      handle: generateHandle(),
     });
 
     const createdProduct = await this.productRepository.save(product);
 
-    await this.createBulkImages(createProductDto.images, createdProduct);
+    createdProduct.variants = await Promise.all(
+      variants?.map(async (variant) => {
+        const attributes = await this.attributeService.find({
+          where: { id: In(variant.attributes) },
+        });
+        const createdVariant = this.variantRepository.create({
+          sku: variant.sku,
+          attributes: attributes!,
+          product,
+        });
 
-    return createdProduct;
+        return await this.variantRepository.save(createdVariant);
+      }),
+    );
+
+    // await this.createBulkImages(createProductDto.images, createdProduct);
+    return this.productRepository.save(createdProduct);
   }
 
   findAll(options: FindManyOptions<Product> = {}) {
@@ -57,17 +63,13 @@ export class ProductsService {
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
-    const { options, images, ...updateData } = updateProductDto;
-    const productToUpdate = await this.findOne({ where: { id } });
-
-    if (options) {
-      await this.deleteOptionsByProductId(productToUpdate.id);
-
-      productToUpdate.options = await this.createBulk(
-        this.productOptionsRepository,
-        options,
-      );
-    }
+    const { images, ...updateData } = updateProductDto;
+    const productToUpdate = await this.findOne({
+      where: { id },
+      relations: {
+        variants: true,
+      },
+    });
 
     if (images) {
       const existingImages = await this.imageRepository.find({
@@ -78,7 +80,7 @@ export class ProductsService {
       await this.createBulkImages(images, productToUpdate);
     }
 
-    const data = { ...productToUpdate, ...updateData };
+    const data = { ...productToUpdate, ...updateData, variants: [] };
 
     return this.productRepository.save(data);
   }
@@ -86,28 +88,9 @@ export class ProductsService {
   async remove(id: string) {
     const product = await this.findOne({
       where: { id },
-      relations: { options: true },
     });
-
-    if (product.options) {
-      await this.deleteOptionsByProductId(product.id);
-    }
 
     return await this.productRepository.remove(product);
-  }
-
-  async deleteOptionsByProductId(productId: string) {
-    const existingProductOptions = await this.productOptionsRepository.find({
-      where: {
-        products: { id: productId },
-      },
-    });
-
-    if (existingProductOptions.length == 0) {
-      throw new NotFoundException('Option(s) Not Found');
-    }
-
-    return await this.productOptionsRepository.remove(existingProductOptions);
   }
 
   async createBulk(repository: Repository<any>, records: any[]) {

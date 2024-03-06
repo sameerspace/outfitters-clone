@@ -23,7 +23,7 @@ export class ProductsController {
   @Get()
   findAll() {
     return this.productsService.findAll({
-      relations: { options: true, images: true },
+      relations: { images: true },
     });
   }
 

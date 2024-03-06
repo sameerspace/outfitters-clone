@@ -15,17 +15,15 @@ export enum Vendor {
   WOMEN = 'women',
   JUNIORS = 'juniors',
 }
-
-export class CreateProductOptionsDTO {
-  @IsNotEmpty()
+/** @param attributes Array of attribute id's */
+export class CreateVariantsDTO {
   @IsString()
-  key: string;
+  sku: string;
 
-  @IsArray()
   @IsNotEmpty()
-  values: string[];
+  @IsArray()
+  attributes: string[];
 }
-
 export class CreateImageDTO {
   @IsString()
   @IsUrl()
@@ -60,8 +58,8 @@ export class CreateProductDto {
 
   @IsNotEmpty()
   @ValidateNested({ each: true })
-  @Type(() => CreateProductOptionsDTO)
-  options: CreateProductOptionsDTO[];
+  @Type(() => CreateVariantsDTO)
+  variants: CreateVariantsDTO[];
 
   @IsNotEmpty()
   @ValidateNested({ each: true })
