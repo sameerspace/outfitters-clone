@@ -1,27 +1,21 @@
-import { AppConfig } from 'src/config/app.config';
 import { DataSource } from 'typeorm';
+import dotenv from 'dotenv';
+import { User } from '../users/entities/user.entity';
+import { Product } from '../products/entities/product.entity';
+import { ProductOption } from '../products/entities/productOptions.entity';
+import { Image } from '../products/entities/image.entity';
+
+dotenv.config();
 
 export const AppDataSource = new DataSource({
-  host: AppConfig.database.host,
-  port: AppConfig.database.port,
-  username: AppConfig.database.username,
-  database: AppConfig.database.name,
-  password: AppConfig.database.password,
   type: 'postgres',
-  synchronize: true,
+  host: process.env.DATABASE_HOST,
+  port: parseInt(process.env.DATABASE_PORT!, 10),
+  username: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
+  entities: [User, Product, ProductOption, Image],
   migrationsTableName: 'migrations',
-  migrations: ['src/migration/*.ts'],
-  entities: ['src/entities/*{.ts,.js}'],
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  migrations: ['dist/src/migrations/*{.ts,.js}'],
+  synchronize: process.env.ENVIRONMENT === 'test' ? true : false,
 });
-
-export const connectToDatabase = async () => {
-  try {
-    await AppDataSource.initialize();
-    console.log('Connection Established with Database');
-  } catch (error) {
-    console.log(`Error Connecting to Database.\n${error}`);
-  }
-};

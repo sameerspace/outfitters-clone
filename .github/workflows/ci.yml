@@ -1,50 +1,71 @@
 name: CI
 
 on:
-  push:
-    branches: ["master, dev"]
-  pull_request:
-    branches: ["master", "dev"]
+    push:
+        branches: ["master, dev"]
+    pull_request:
+        branches: ["master", "dev"]
 
 jobs:
-  build:
-    name: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
+    build:
+        name: build
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [18.x]
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-      - name: Install PNPM
-        run: npm install -g pnpm
+            - name: Install PNPM
+              run: npm install -g pnpm
 
-      - name: Run pnpm install
-        run: pnpm i
+            - name: Run pnpm install
+              run: pnpm i
 
-      - name: Build
-        run: pnpm build
+            - name: Build
+              run: pnpm build
 
-  test:
-    name: test
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
+    test:
+        name: test
 
-      - name: Install PNPM
-        run: npm install -g pnpm
+        env:
+            ENVIRONMENT: test
+            DATABASE_HOST: localhost
+            DATABASE_NAME: outfitters-test
+            DATABASE_USERNAME: test
+            DATABASE_PASSWORD: sample
+            DATABASE_PORT: 5432
 
-      - name: Run pnpm install
-        run: pnpm i
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [18.x]
 
-      - name: Test
-        run: pnpm test
+        services:
+            postgres:
+                image: postgres:14-alpine
+                ports:
+                    - 5432:5432
+                env:
+                    POSTGRES_USER: test
+                    POSTGRES_PASSWORD: sample
+                    POSTGRES_DB: outfitters-test
+                options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Install PNPM
+              run: npm install -g pnpm
+
+            - name: Run pnpm install
+              run: pnpm i
+
+            - name: Test
+              run: pnpm test
